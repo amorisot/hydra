@@ -94,11 +94,12 @@ class ResNet(nn.Module):
         out = self.layer4(out)
         out = F.avg_pool2d(out, 4)
         outsize = out.size(0) ###HOUSEKEEPING
-        out = out.view(out.size(0), -1)
+        out = out.view(out.size(1), -1)
         ###HYDRA
         assert(outsize == out.size(0))
         new_arm = decode(out.size(0)).to('cuda')
         decoded = new_arm(out)
+        decoded = decoded.view(-1, 3, 32, 32)
         ###BACK TO NORMAL
         out = self.linear(out)
         return out, decoded

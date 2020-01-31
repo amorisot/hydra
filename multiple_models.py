@@ -26,7 +26,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 assert models.keys() == models_hydra.keys()
 for model in models:
-    trainloader, testloader = loader('CIFAR10')
+    trainloader, testloader = loader('CIFAR10', download=False)
     total_num_iterations = 5
 
     stats = {
@@ -75,7 +75,7 @@ for model in models:
                 optimizer_classifier.zero_grad()       
 
                 ###HYDRA SECTION
-                hydra_decoded, hydra_predicted = hydra(inputs)
+                hydra_predicted, hydra_decoded= hydra(inputs)
                 hydra_loss_decode = criterion_hydra(hydra_decoded, inputs)
                 hydra_loss_predict = criterion_hydra2(hydra_predicted, targets)
                 loss_hydra = hydra_loss_decode + hydra_loss_predict
@@ -110,7 +110,7 @@ for model in models:
                 total += targets.size(0)
 
                 ###HYDRA
-                _, hydra_predicted = hydra(inputs)
+                hydra_predicted, _ = hydra(inputs)
                 hydra_loss_predict = criterion_hydra2(hydra_predicted, targets)
                 test_loss_hydra += hydra_loss_predict.item()
 
