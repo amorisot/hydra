@@ -152,6 +152,8 @@ configs = {
     }
 }
 
+def getShufflenet():
+    return ShuffleNetV2(1)
 
 def test():
     net = ShuffleNetV2(net_size=0.5)
