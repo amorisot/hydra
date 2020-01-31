@@ -135,7 +135,7 @@ for model in models:
 
             #STATS
             if epoch % 5 == 0:
-                results = (f'iter {iterations}, epoch {epoch}/{num_epochs}',
+                results = (f'model {model}, iter {iterations}, epoch {epoch}/{num_epochs}',
                            f'| train losses: '
                            f'hydra = {train_loss_hydra:.3f}, classifier = {train_loss_classifier:.3f}',
                            f'| test losses: ',
@@ -148,8 +148,8 @@ for model in models:
         stats['classifier test loss'].append(test_loss_classifier_plot)
         stats['hydra train loss'].append(train_loss_hydra_plot)
         stats['classifier train loss'].append(train_loss_classifier_plot)
-        stats['hydra accuracy'].append(accuracies_hydra)
-        stats['classifier accuracy'].append(accuracies_predicted)
+        stats['hydra accuracy'].append(accuracies_hydra_plot)
+        stats['classifier accuracy'].append(accuracies_predicted_plot)
 
         xs = np.arange(num_epochs)
 
@@ -161,8 +161,8 @@ for model in models:
         plt.plot(xs, test_loss_classifier_plot, label='classifier test loss', c='dodgerblue')
         plt.legend()
         plt.subplot(1, 3, 2)
-        plt.plot(xs, accuracies_hydra, label='hydra acc', c='g')
-        plt.plot(xs, accuracies_predicted, label='classifier acc', c='b')
+        plt.plot(xs, accuracies_hydra_plot, label='hydra acc', c='g')
+        plt.plot(xs, accuracies_predicted_plot, label='classifier acc', c='b')
         plt.legend()
         plt.tight_layout()
     plt.savefig(f'plots/{model}_hydra_vs_classifier_cifar_{time():.3f}.png') 
