@@ -16,11 +16,11 @@ from time import time
 from loaders import loader
 #do some dangerous stuff with the naming. make sure print statements are working out.
 from models import *
-models = {'resnet18': ResNet18(), 'vgg': VGG('VGG16mod'), 
-          'shufflenet': ShuffleNetV2(1), 'densenet121': DenseNet121()}
+models = {'resnet18': getResnet(), 'vgg': getVGG(), 
+          'shufflenet': getShufflenet(), 'densenet121': getDensenet()}
 from models2 import *
-models_hydra = {'resnet18': ResNet18(), 'vgg': VGG('VGG16mod'), 
-          'shufflenet': ShuffleNetV2(1), 'densenet121': DenseNet121()}
+models_hydra = {'resnet18': getResnet(), 'vgg': getVGG(), 
+          'shufflenet': getShufflenet(), 'densenet121': getDensenet()}
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -58,7 +58,7 @@ for model in models:
         accuracies_hydra_plot = []
         accuracies_predicted_plot = []
 
-        num_epochs = 5
+        num_epochs = 1
         for epoch in range(num_epochs):
         ###TRAINING
             train_loss_hydra = 0
