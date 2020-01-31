@@ -124,8 +124,8 @@ for model in models:
                 _, predicted = classifier_predicted.max(1)
                 correct_classifier += predicted.eq(targets).sum().item()
 
-            accuracies_hydra.append(correct_hydra/total)
-            accuracies_predicted.append(correct_classifier/total)
+            accuracies_hydra_plot.append(correct_hydra/total)
+            accuracies_predicted_plot.append(correct_classifier/total)
 
             test_loss_hydra /= total
             test_loss_classifier /= total
