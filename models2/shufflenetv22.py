@@ -128,10 +128,10 @@ class ShuffleNetV2(nn.Module):
         out = F.relu(self.bn2(self.conv2(out)))
         out = F.avg_pool2d(out, 4)
         outsize = out.size(0) ###HOUSEKEEPING
-        out = out.view(out.size(1), -1)
+        out = out.view(out.size(0), -1)
         ###HYDRA
         assert(outsize == out.size(0))
-        new_arm = decode(out.size(0)).to('cuda')
+        new_arm = decode(out.size(1)).to('cuda')
         decoded = new_arm(out)
         decoded = decoded.view(-1, 3, 32, 32)
         ###BACK TO NORMAL
@@ -159,6 +159,8 @@ configs = {
     }
 }
 
+def getShufflenet():
+    return ShuffleNetV2(1)
 
 def test():
     net = ShuffleNetV2(net_size=0.5)

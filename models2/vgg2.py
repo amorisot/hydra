@@ -51,6 +51,8 @@ class VGG(nn.Module):
         layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
         return nn.Sequential(*layers)
 
+def getVGG():
+    return VGG('VGG16mod')
 
 def test():
     net = VGG('VGG11')

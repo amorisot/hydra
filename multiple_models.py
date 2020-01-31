@@ -16,10 +16,10 @@ from time import time
 from loaders import loader
 #do some dangerous stuff with the naming. make sure print statements are working out.
 from models import *
-models = {'vgg': VGG('VGG16mod'), 'resnet18': ResNet18(), 
+models = {'resnet18': ResNet18(), 'vgg': VGG('VGG16mod'), 
           'shufflenet': ShuffleNetV2(1), 'densenet121': DenseNet121()}
 from models2 import *
-models_hydra = {'vgg': VGG('VGG16mod'), 'resnet18': ResNet18(), 
+models_hydra = {'resnet18': ResNet18(), 'vgg': VGG('VGG16mod'), 
           'shufflenet': ShuffleNetV2(1), 'densenet121': DenseNet121()}
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
