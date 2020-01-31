@@ -22,9 +22,9 @@ from loaders import loader
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-trainloader, testloader = loader('MNIST')
+trainloader, testloader = loader('CIFAR10')
 
-total_num_iterations = 8
+total_num_iterations = 5
 
 hydra_prediction_test_loss_iter = []
 predicted_prediction_test_loss_iter = []
@@ -40,7 +40,7 @@ for iterations in range(total_num_iterations):
     hydra = HydraMLPAutoencoder(channels = 3, bottleneck = 16)
     hydra.to(device)
 
-    lr = 0.0005
+    lr = 0.001
 
     criterion_classifier = nn.CrossEntropyLoss()
     optimizer_classifier = optim.Adam(classifier.parameters(), lr=lr)
@@ -138,9 +138,9 @@ for iterations in range(total_num_iterations):
         if epoch % 5 == 0:
             results = (f'iter {iterations}, epoch {epoch}/{num_epochs}',
                        f'| train losses: '
-                       f'hydra predict = {train_loss_hydra_predict:.3f}, classifier predict = {train_loss_classifier_predict:.3f}',
+                       f'hydra = {train_loss_hydra_predict:.3f}, classifier = {train_loss_classifier_predict:.3f}',
                        f'| test losses: ',
-                       f'hydra predict = {test_loss_hydra_predict:.3f}, classifier predict = {test_loss_classifier_predict:.3f}',
+                       f'hydra = {test_loss_hydra_predict:.3f}, classifier = {test_loss_classifier_predict:.3f}',
                        f'| Accs: ',
                        f'hydra = {100*correct_hydra/total:.3f}, predict = {100*correct_classifier/total:.3f}')
             print(' '.join(results))
