@@ -5,6 +5,7 @@ See the paper "ShuffleNet V2: Practical Guidelines for Efficient CNN Architectur
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from .decoder2 import decode
 
 
 class ShuffleBlock(nn.Module):
