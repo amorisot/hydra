@@ -165,6 +165,10 @@ for model in models:
         plt.plot(xs, accuracies_predicted_plot, label='classifier acc', c='b')
         plt.legend()
         plt.tight_layout()
+
+        del hydra
+        del classifier
+        torch.cuda.empty_cache()
     plt.savefig(f'plots/{model}_hydra_vs_classifier_cifar_{time():.3f}.png') 
 
     plt.figure(figsize=(15,7))
