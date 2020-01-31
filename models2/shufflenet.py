@@ -50,7 +50,7 @@ class Bottleneck(nn.Module):
 
 class ShuffleNet(nn.Module):
     def __init__(self, cfg):
-        print('this is a normal shufflenet')
+        print('this is a hydra shufflenet')
         super(ShuffleNet, self).__init__()
         out_planes = cfg['out_planes']
         num_blocks = cfg['num_blocks']
@@ -79,9 +79,15 @@ class ShuffleNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = F.avg_pool2d(out, 4)
+        outsize = out.size(0) ###HOUSEKEEPING
         out = out.view(out.size(0), -1)
+        ###HYDRA
+        assert(outsize == out.size(0))
+        new_arm = decode(out.size(0))
+        decoded = new_arm(out)
+        ###BACK TO NORMAL
         out = self.linear(out)
-        return out
+        return out, decoded
 
 
 def ShuffleNetG2():

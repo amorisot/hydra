@@ -35,7 +35,7 @@ class Transition(nn.Module):
 
 class DenseNet(nn.Module):
     def __init__(self, block, nblocks, growth_rate=12, reduction=0.5, num_classes=10):
-        print('this is a normal densenet')
+        print('this is a hydra densenet')
         super(DenseNet, self).__init__()
         self.growth_rate = growth_rate
 
@@ -80,9 +80,15 @@ class DenseNet(nn.Module):
         out = self.trans3(self.dense3(out))
         out = self.dense4(out)
         out = F.avg_pool2d(F.relu(self.bn(out)), 4)
+        outsize = out.size(0) ###HOUSEKEEPING
         out = out.view(out.size(0), -1)
+        ###HYDRA
+        assert(outsize == out.size(0))
+        new_arm = decode(out.size(0))
+        decoded = new_arm(out)
+        ###BACK TO NORMAL
         out = self.linear(out)
-        return out
+        return out, decoded
 
 def DenseNet121():
     return DenseNet(Bottleneck, [6,12,24,16], growth_rate=32)

@@ -1,4 +1,4 @@
-'''Train mnist with PyTorch.'''
+'''Train cifar10 with PyTorch.'''
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -50,7 +50,6 @@ for iterations in range(total_num_iterations):
 
     train_loss_hydra_predict_plot = []
     train_loss_classifier_predict_plot = []
-
 
     test_loss_hydra_predict_plot = []
     test_loss_classifier_predict_plot = []

@@ -1,6 +1,7 @@
 '''VGG11/13/16/19 in Pytorch.'''
 import torch
 import torch.nn as nn
+from .decoder2 import decode
 
 
 cfg = {
@@ -15,7 +16,7 @@ cfg = {
 
 class VGG(nn.Module):
     def __init__(self, vgg_name, in_channels = 3):
-        print('this is a normal vgg')
+        print('this is a hydra vgg')
         super(VGG, self).__init__()
         self.in_channels = in_channels
         if vgg_name == 'VGG16mod_mnist':
@@ -26,9 +27,15 @@ class VGG(nn.Module):
 
     def forward(self, x):
         out = self.features(x)
+        outsize = out.size(0) ###HOUSEKEEPING
         out = out.view(out.size(0), -1)
+        ###HYDRA
+        assert(outsize == out.size(0))
+        new_arm = decode(out.size(0))
+        decoded = new_arm(out)
+        ###BACK TO NORMAL
         out = self.classifier(out)
-        return out
+        return out, decoded
 
     def _make_layers(self, cfg, in_channels):
         layers = []

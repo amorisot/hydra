@@ -95,7 +95,7 @@ class DownBlock(nn.Module):
 
 class ShuffleNetV2(nn.Module):
     def __init__(self, net_size):
-        print('this is a normal shufflenet v2')
+        print('this is a hydra shufflenet v2')
         super(ShuffleNetV2, self).__init__()
         out_channels = configs[net_size]['out_channels']
         num_blocks = configs[net_size]['num_blocks']
@@ -127,9 +127,15 @@ class ShuffleNetV2(nn.Module):
         out = self.layer3(out)
         out = F.relu(self.bn2(self.conv2(out)))
         out = F.avg_pool2d(out, 4)
+        outsize = out.size(0) ###HOUSEKEEPING
         out = out.view(out.size(0), -1)
+        ###HYDRA
+        assert(outsize == out.size(0))
+        new_arm = decode(out.size(0))
+        decoded = new_arm(out)
+        ###BACK TO NORMAL
         out = self.linear(out)
-        return out
+        return out, decoded
 
 
 configs = {

@@ -66,7 +66,7 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
     def __init__(self, block, num_blocks, num_channels = 3, num_classes=10):
-        print('this is a normal resnet')
+        print('this is a hydra resnet')
         super(ResNet, self).__init__()
         self.in_planes = 64
 
@@ -93,9 +93,15 @@ class ResNet(nn.Module):
         out = self.layer3(out)
         out = self.layer4(out)
         out = F.avg_pool2d(out, 4)
+        outsize = out.size(0) ###HOUSEKEEPING
         out = out.view(out.size(0), -1)
+        ###HYDRA
+        assert(outsize == out.size(0))
+        new_arm = decode(out.size(0))
+        decoded = new_arm(out)
+        ###BACK TO NORMAL
         out = self.linear(out)
-        return out
+        return out, decoded
 
 
 def ResNet18(num_channels = 3):
