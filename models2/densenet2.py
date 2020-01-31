@@ -84,7 +84,7 @@ class DenseNet(nn.Module):
         out = out.view(out.size(0), -1)
         ###HYDRA
         assert(outsize == out.size(0))
-        new_arm = decode(out.size(0))
+        new_arm = decode(out.size(0)).to('cuda')
         decoded = new_arm(out)
         ###BACK TO NORMAL
         out = self.linear(out)
