@@ -121,7 +121,7 @@ def ResNet101():
 def ResNet152():
     return ResNet(Bottleneck, [3,8,36,3])
 
-def getResnet():
+def getResnet2():
     return ResNet18()
 
 def test():
