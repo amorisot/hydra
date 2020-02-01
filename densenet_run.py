@@ -14,8 +14,8 @@ import numpy as np
 
 from time import time
 from loaders import loader
-from models import getResnet
-from models2 import getResnet2
+from models import getDensenet
+from models2 import getDensenet2
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -34,11 +34,11 @@ stats = {
 num_epochs = 1
 total_num_iterations = 5
 lr = 0.001
-model = 'resnet'
+model = 'densenet'
 for iterations in range(total_num_iterations):
 
-    classifier = getResnet().to(device)
-    hydra = getResnet2().to(device)
+    classifier = getDensenet().to(device)
+    hydra = getDensenet2().to(device)
 
     criterion_classifier = nn.CrossEntropyLoss()
     optimizer_classifier = optim.Adam(classifier.parameters(), lr=lr)

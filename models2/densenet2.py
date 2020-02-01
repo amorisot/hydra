@@ -107,7 +107,7 @@ def DenseNet161():
 def densenet_cifar():
     return DenseNet(Bottleneck, [6,12,24,16], growth_rate=12)
 
-def getDensenet():
+def getDensenet2():
     return DenseNet121()
 
 def test():

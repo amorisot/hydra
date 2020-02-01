@@ -14,13 +14,12 @@ import numpy as np
 
 from time import time
 from loaders import loader
-from models import getResnet
-from models2 import getResnet2
+from models import getVGG
+from models2 import getVGG2
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 trainloader, testloader = loader('CIFAR10', download=False)
-
 
 stats = {
          'hydra test loss': [],
@@ -32,13 +31,13 @@ stats = {
         }
 
 num_epochs = 1
-total_num_iterations = 5
+total_num_iterations = 2
 lr = 0.001
-model = 'resnet'
+model = 'vgg'
 for iterations in range(total_num_iterations):
 
-    classifier = getResnet().to(device)
-    hydra = getResnet2().to(device)
+    classifier = getVGG().to(device)
+    hydra = getVGG2().to(device)
 
     criterion_classifier = nn.CrossEntropyLoss()
     optimizer_classifier = optim.Adam(classifier.parameters(), lr=lr)

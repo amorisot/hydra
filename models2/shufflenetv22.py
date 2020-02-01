@@ -160,7 +160,7 @@ configs = {
     }
 }
 
-def getShufflenet():
+def getShufflenet2():
     return ShuffleNetV2(1)
 
 def test():
