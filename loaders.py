@@ -32,7 +32,7 @@ def _mnist_transforms():
     return transform_train_MNIST, transform_test_MNIST
 
 # Returns MNIST dataloaders
-def loader(dataset, download=True):
+def loader(dataset, download=True, batch_size_train = 256, batch_size_test = 100):
     dataset_selector = {'MNIST': _mnist_transforms(), 'CIFAR10': _cifar10_transforms()}
 
     if dataset in dataset_selector:
@@ -49,10 +49,10 @@ def loader(dataset, download=True):
         testset = torchvision.datasets.MNIST(root='./data', train=False, 
                                                download=download, transform=transform_test)
 
-        trainloader = torch.utils.data.DataLoader(trainset, batch_size=256, 
-                                                  shuffle=download, num_workers=2)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=100, 
-                                                 shuffle=download, num_workers=2)
+        trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size_train, 
+                                                  shuffle=True, num_workers=2)
+        testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size_test, 
+                                                 shuffle=True, num_workers=2)
 
     if dataset == 'CIFAR10':
         print(f'==> Loading {dataset} into dataloader...')
@@ -61,9 +61,9 @@ def loader(dataset, download=True):
         testset = torchvision.datasets.CIFAR10(root='./data', train=False, 
                                                download=download, transform=transform_test)
 
-        trainloader = torch.utils.data.DataLoader(trainset, batch_size=256, 
-                                                  shuffle=download, num_workers=2)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=100, 
-                                                 shuffle=download, num_workers=2)
+        trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size_train, 
+                                                  shuffle=True, num_workers=2)
+        testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size_test, 
+                                                 shuffle=True, num_workers=2)
 
     return trainloader, testloader 
