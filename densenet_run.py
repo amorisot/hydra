@@ -19,7 +19,7 @@ from models2 import getDensenet2
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-trainloader, testloader = loader('CIFAR10', download=False, batch_size_train=8, batch_size_test=8)
+trainloader, testloader = loader('CIFAR10', download=False, batch_size_train=64, batch_size_test=64)
 
 
 stats = {
