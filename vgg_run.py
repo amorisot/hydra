@@ -30,8 +30,8 @@ stats = {
          'classifier accuracy': []
         }
 
-num_epochs = 1
-total_num_iterations = 2
+num_epochs = 200
+total_num_iterations = 5
 lr = 0.001
 model = 'vgg'
 for iterations in range(total_num_iterations):
