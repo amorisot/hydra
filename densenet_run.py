@@ -33,7 +33,7 @@ stats = {
 
 num_epochs = 200
 total_num_iterations = 5
-lr = 0.001
+lr = 0.0003
 model = 'densenet'
 for iterations in range(total_num_iterations):
 
@@ -181,7 +181,7 @@ plt.legend()
 plt.tight_layout()
 plt.savefig(f'plots/{model}_hydra_vs_mlp_cifar_x{total_num_iterations}_{time():.1f}.png')
 
-with open(f'stats_pickled/stat_summaries_{model}.pkl', 'wb') as pickled:
+with open(f'stats_pickled/stat_summaries_{model}_{lr}.pkl', 'wb') as pickled:
     pickle.dump(stats, pickled)
 
 
